@@ -1,0 +1,38 @@
+﻿CREATE DATABASE posts;
+
+CREATE TABLE post (id SERIAL, nombre_usuario VARCHAR(20), fecha_creacion DATE, contenido VARCHAR(100), descripcion VARCHAR(20), PRIMARY KEY (id));
+
+INSERT INTO post (nombre_usuario, fecha_creacion, contenido, descripcion) VALUES ('Pamela','2020-07-20','Contenido 1 de Pamela','Content 1');
+INSERT INTO post (nombre_usuario, fecha_creacion, contenido, descripcion) VALUES ('Pamela','2020-07-20','Contenido 2 de Pamela','Content 2');
+INSERT INTO post (nombre_usuario, fecha_creacion, contenido, descripcion) VALUES ('Carlos','2020-07-20','Contenido 1 de Carlos','Content 1');
+
+ALTER TABLE post  ADD COLUMN titulo VARCHAR(20);
+
+UPDATE post SET titulo = 'Titulos Pamela' WHERE nombre_usuario = 'Pamela';
+UPDATE post SET titulo = 'Titulo Carlos' WHERE nombre_usuario = 'Carlos';	
+
+INSERT INTO post (nombre_usuario, fecha_creacion, contenido, descripcion, titulo) VALUES ('Pedro','2020-07-20','Contenido 1 de Pedro','Content 1','Titulos Pedro');
+INSERT INTO post (nombre_usuario, fecha_creacion, contenido, descripcion, titulo) VALUES ('Pedro','2020-07-20','Contenido 2 de Pedro','Content 2','Titulos Pedro');
+
+DELETE FROM post WHERE nombre_usuario = 'Carlos';
+
+
+INSERT INTO post (nombre_usuario, fecha_creacion, contenido, descripcion, titulo) VALUES ('Carlos','2020-07-20','Contenido 2 de Carlos','Content 2','Titulos Carlos');
+
+CREATE TABLE comentarios (id SERIAL, fecha_hora TIMESTAMP,  contenido VARCHAR(100), FOREIGN KEY (id) REFERENCES post(id));
+
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Pamela','1');
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Pamela2 ','1');
+
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Carlos 1 ','7');
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Carlos 2 ','7');
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Carlos 3 ','7');
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Carlos 4 ','7');
+
+INSERT INTO post (nombre_usuario, fecha_creacion, contenido, descripcion, titulo) VALUES ('Margarita','2020-07-20','Contenido 1 de Margarita','Content 12','Titulos Margarita');
+
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Margarita 1 ','8');
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Margarita 2 ','8');
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Margarita 3 ','8');
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Margarita 4 ','8');
+INSERT INTO comentarios (fecha_hora, contenido, id) VALUES (NOW(), 'contenido de Margarita 5 ','8');
