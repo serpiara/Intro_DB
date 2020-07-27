@@ -1,0 +1,24 @@
+﻿CREATE DATABASE peliculas;
+
+CREATE TABLE peliculas(id SERIAL,pelicula VARCHAR(100),ano INT,director VARCHAR(100), PRIMARY KEY (id));
+
+CREATE TABLE reparto(id SERIAL, actor VARCHAR(100), FOREIGN KEY (id) REFERENCES peliculas(id));
+
+\copy peliculas FROM '/home/serpiara/Escritorio/G32/intro_db/peliculas.csv' csv header;
+
+\copy reparto FROM '/home/serpiara/Escritorio/G32/intro_db/reparto.csv' csv;
+
+SELECT peliculas.pelicula, peliculas.ano, peliculas.director, reparto.actor FROM peliculas FULL OUTER  JOIN reparto ON peliculas.id=reparto.id WHERE peliculas.id = 2;
+
+SELECT peliculas.pelicula FROM peliculas FULL OUTER  JOIN reparto ON peliculas.id=reparto.id WHERE reparto.actor ='Harrison Ford';
+
+SELECT director, COUNT(*) AS cantidad FROM peliculas GROUP BY director ORDER BY cantidad DESC LIMIT 10;
+                   
+
+SELECT  COUNT (DISTINCT actor) FROM reparto;
+
+SELECT  pelicula FROM peliculas WHERE ano >=1990 AND ano <2000 ORDER BY pelicula ASC;
+
+SELECT peliculas.pelicula, peliculas.ano, reparto.actor FROM peliculas FULL OUTER JOIN reparto ON peliculas.id=reparto.id WHERE peliculas.ano = 2001;
+
+SELECT reparto.actor FROM reparto WHERE id IN (SELECT id FROM peliculas ORDER BY ano DESC LIMIT 1);
